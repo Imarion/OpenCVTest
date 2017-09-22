@@ -88,7 +88,11 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         Imgproc.resize(mRgbaT, mRgbaF, mRgbaF.size(), 0,0, 0);
         Core.flip(mRgbaF, mRgba, 1 );
 
-        return mRgba; // This function must return
+        Mat edges = new Mat(mRgba.size(), CvType.CV_8UC1);
+        Imgproc.cvtColor(mRgba, edges, Imgproc.COLOR_RGB2GRAY, 4);
+        Imgproc.Canny(edges, edges, 80, 100);
+
+        return edges; // This function must return
     }
 
     @Override
